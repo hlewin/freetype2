@@ -13,7 +13,7 @@
 #define FT_CONFIG_OPTION_ERROR_STRINGS
 # NOTE this is essential
 # 
-
+set -e
 
 if [ -z {WDY_XBUILD_ROOT} ]; then
 	echo "WDY_XBUILD_ROOT not set!"
@@ -22,6 +22,9 @@ fi
 
 
 DIR=$(readlink -f $(dirname $0))
+
+cd ${DIR}
+./autogen.sh
 
 ${WDY_XBUILD_ROOT}/bin/android-build "${DIR}" \
 	--enable-shared \

@@ -272,7 +272,7 @@ FT_BEGIN_HEADER
    *   options set by those programs have precedence, overwriting the value
    *   here with the configured one.
    */
-/* #define FT_CONFIG_OPTION_USE_PNG */
+#define FT_CONFIG_OPTION_USE_PNG
 
 
   /**************************************************************************
@@ -519,7 +519,7 @@ FT_BEGIN_HEADER
    *
    *   More details can be found in the file `fterrors.h`.
    */
-/* #define FT_CONFIG_OPTION_ERROR_STRINGS */
+#define FT_CONFIG_OPTION_ERROR_STRINGS
 
 
   /*************************************************************************/

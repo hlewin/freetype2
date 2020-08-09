@@ -1,0 +1,37 @@
+#!/bin/bash
+
+
+# Freetype uses include/config/ftoption.h for behaviour-switches.
+# Ensure right options are set after updates
+# 
+#
+# changes done to ftoption.h
+#
+#define FT_CONFIG_OPTION_USE_PNG
+#
+#
+#define FT_CONFIG_OPTION_ERROR_STRINGS
+# NOTE this is essential
+# 
+
+
+if [ -z {WDY_XBUILD_ROOT} ]; then
+	echo "WDY_XBUILD_ROOT not set!"
+	exit 1
+fi
+
+
+DIR=$(readlink -f $(dirname $0))
+
+${WDY_XBUILD_ROOT}/bin/android-build "${DIR}" \
+	--enable-shared \
+	--with-harfbuzz=no \
+	--with-zlib=yes \
+	--with-png=yes \
+	--enable-static=no \
+	--with-bzip2=no \
+	--disable-mmap \
+	--disable-largefile
+
+${WDY_XBUILD_ROOT}/bin/prepare_libraries.sh
+

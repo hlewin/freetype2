@@ -62,10 +62,9 @@
 
 #else /* !STANDALONE_ */
 
-#include <ft2build.h>
 #include "ftraster.h"
-#include FT_INTERNAL_CALC_H   /* for FT_MulDiv and FT_MulDiv_No_Round */
-#include FT_OUTLINE_H         /* for FT_Outline_Get_CBox              */
+#include <freetype/internal/ftcalc.h> /* for FT_MulDiv and FT_MulDiv_No_Round */
+#include <freetype/ftoutln.h>         /* for FT_Outline_Get_CBox              */
 
 #endif /* !STANDALONE_ */
 
@@ -226,8 +225,8 @@
 #else /* !STANDALONE_ */
 
 
-#include FT_INTERNAL_OBJECTS_H
-#include FT_INTERNAL_DEBUG_H       /* for FT_TRACE, FT_ERROR, and FT_THROW */
+#include <freetype/internal/ftobjs.h>
+#include <freetype/internal/ftdebug.h> /* for FT_TRACE, FT_ERROR, and FT_THROW */
 
 #include "rasterrs.h"
 
@@ -674,13 +673,13 @@
       if ( overshoot )
         ras.cProfile->flags |= Overshoot_Bottom;
 
-      FT_TRACE6(( "  new ascending profile = %p\n", ras.cProfile ));
+      FT_TRACE6(( "  new ascending profile = %p\n", (void *)ras.cProfile ));
       break;
 
     case Descending_State:
       if ( overshoot )
         ras.cProfile->flags |= Overshoot_Top;
-      FT_TRACE6(( "  new descending profile = %p\n", ras.cProfile ));
+      FT_TRACE6(( "  new descending profile = %p\n", (void *)ras.cProfile ));
       break;
 
     default:
@@ -737,7 +736,7 @@
 
 
       FT_TRACE6(( "  ending profile %p, start = %ld, height = %ld\n",
-                  ras.cProfile, ras.cProfile->start, h ));
+                  (void *)ras.cProfile, ras.cProfile->start, h ));
 
       ras.cProfile->height = h;
       if ( overshoot )
@@ -2274,7 +2273,7 @@
       if ( e2 >= ras.bWidth )
         e2 = ras.bWidth - 1;
 
-      FT_TRACE7(( " -> x=[%d;%d]", e1, e2 ));
+      FT_TRACE7(( " -> x=[%ld;%ld]", e1, e2 ));
 
       c1 = (Short)( e1 >> 3 );
       c2 = (Short)( e2 >> 3 );
@@ -2448,7 +2447,7 @@
 
     if ( e1 >= 0 && e1 < ras.bWidth )
     {
-      FT_TRACE7(( " -> x=%d (drop-out)", e1 ));
+      FT_TRACE7(( " -> x=%ld (drop-out)", e1 ));
 
       c1 = (Short)( e1 >> 3 );
       f1 = (Short)( e1 & 7 );
@@ -2522,7 +2521,7 @@
           PByte  bits;
 
 
-          FT_TRACE7(( " -> y=%d (drop-out)", e1 ));
+          FT_TRACE7(( " -> y=%ld (drop-out)", e1 ));
 
           bits = ras.bOrigin + ( y >> 3 ) - e1 * ras.target.pitch;
           f1   = (Byte)( 0x80 >> ( y & 7 ) );
@@ -2645,7 +2644,7 @@
 
     if ( e1 >= 0 && (ULong)e1 < ras.target.rows )
     {
-      FT_TRACE7(( " -> y=%d (drop-out)", e1 ));
+      FT_TRACE7(( " -> y=%ld (drop-out)", e1 ));
 
       bits  = ras.bOrigin + ( y >> 3 ) - e1 * ras.target.pitch;
       f1    = (Byte)( 0x80 >> ( y & 7 ) );
